@@ -1,0 +1,286 @@
+---
+swagger: "2.0"
+info:
+  description: "This is an open API for Milcare Foundations Onlus website developed\
+    \ by Sophisticated Kids team"
+  version: "1.0.0"
+  title: "Milcare Foundations Onlus API"
+  termsOfService: "All the material on the website is for educational purpose only,\
+    \ any commercial use is prohibited."
+  contact:
+    name: "Sophisticated Group- Najib only"
+    url: "https://github.com/sisco12/Hypermedianajib"
+    email: "najib.elguertit@mail.polimi.it"
+  license:
+    name: "MIT"
+    url: "http://opensource.org/licenses/MIT"
+host: "localhost:8080"
+basePath: "/api"
+tags:
+- name: "events"
+  description: "Informations Related to the event"
+- name: "services"
+  description: "Information Related to the services"
+- name: "staff"
+  description: "Related to the staff members"
+schemes:
+- "https"
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /events:
+    get:
+      tags:
+      - "events"
+      summary: "Get all Events names in the database"
+      operationId: "getEvents"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "Operation OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/events"
+        "404":
+          description: "Events were not found on the database"
+          schema:
+            $ref: "#/definitions/No_Object_Error"
+      x-swagger-router-controller: "Events"
+  /events/{eventID}:
+    get:
+      tags:
+      - "events"
+      summary: "Find Event by eventID"
+      description: "return a single event"
+      operationId: "getEventsID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "eventID"
+        in: "path"
+        description: "eventID of the event to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Operation OK"
+          examples:
+            application/json:
+              eventID: "1"
+              title: "Life lecture"
+              description: "An appointment that over time has found more and more\
+                \ interest and that for this reason this fourth 2020 edition had to\
+                \ be divided into two separate Laboratories: Tuesday and Wednesday\
+                \ laboratories in order to be able to accept all the applications\
+                \ received."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/events"
+        "404":
+          description: "No EventIDfound on the database"
+          schema:
+            $ref: "#/definitions/No_Object_Error"
+      x-swagger-router-controller: "Events"
+  /services:
+    get:
+      tags:
+      - "services"
+      summary: "Get all services in the database"
+      operationId: "getServices"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "Operation OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/services"
+        "404":
+          description: "Services were not found on the database"
+          schema:
+            $ref: "#/definitions/No_Object_Error"
+      x-swagger-router-controller: "Services"
+  /services/{serviceID}:
+    get:
+      tags:
+      - "services"
+      summary: "Service names by ID"
+      description: "Returns the names, short descriptions, and UUIDS of all services"
+      operationId: "getServicesID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "serviceID"
+        in: "path"
+        description: "serviceid of return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "operation ok"
+          examples:
+            application/json:
+              serviceID: "1"
+              title: "Hospice"
+              description: "The Hospice Milcare is a house with open windows on the\
+                \ world, where some sick people have accepted to live with dignity\
+                \ the final stage of their lives, assisted by their family members\
+                \ and social and health operators trained."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/services"
+        "404":
+          description: "No servies found in database"
+          schema:
+            $ref: "#/definitions/No_Object_Error"
+      x-swagger-router-controller: "Services"
+  /staff:
+    get:
+      tags:
+      - "staff"
+      summary: "Get all staff members in the database"
+      operationId: "getStaff"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "Operation OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/staff"
+        "404":
+          description: "staff member were not found on the database"
+          schema:
+            $ref: "#/definitions/No_Object_Error"
+      x-swagger-router-controller: "Staff"
+  /staff/{staffID}:
+    get:
+      tags:
+      - "staff"
+      summary: "member  by ID"
+      description: "Returns the names,role and short descriptions."
+      operationId: "getStaffID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "staffID"
+        in: "path"
+        description: "member id to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "operation ok"
+          examples:
+            application/json:
+              staffID: "1"
+              name: "Bruno Andreoni"
+              role: "The president of Milcare"
+              description: "The Cascina Brandezzata project is now fully operational:\
+                \ the historic farmhouse located in via Ripamonti 428 has been completely\
+                \ renovated and is now home to a Hospice for Terminal Patients and\
+                \ an Interdepartmental University Center for training and research\
+                \ in Palliative Care and in Therapy of ache."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/staff"
+        "404":
+          description: "No servies found in database"
+          schema:
+            $ref: "#/definitions/No_Object_Error"
+      x-swagger-router-controller: "Staff"
+definitions:
+  No_Object_Error:
+    type: "object"
+    required:
+    - "errorMessage"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      errorMessage:
+        type: "string"
+    example:
+      success: false
+      errorMessage: "No objects found in the Db."
+  events:
+    type: "object"
+    required:
+    - "description"
+    - "eventID"
+    - "title"
+    properties:
+      eventID:
+        type: "integer"
+      title:
+        type: "string"
+      description:
+        type: "string"
+    example:
+      eventID: "1"
+      title: "Life lecture"
+      description: "An appointment that over time has found more and more interest\
+        \ and that for this reason this fourth 2020 edition had to be divided into\
+        \ two separate Laboratories: Tuesday and Wednesday laboratories in order to\
+        \ be able to accept all the applications received."
+  services:
+    type: "object"
+    required:
+    - "description"
+    - "serviceID"
+    - "title"
+    properties:
+      serviceID:
+        type: "integer"
+      title:
+        type: "string"
+      description:
+        type: "string"
+    example:
+      serviceID: "1"
+      title: "Hospice"
+      description: "The Hospice Milcare is a house with open windows on the world,\
+        \ where some sick people have accepted to live with dignity the final stage\
+        \ of their lives, assisted by their family members and social and health operators\
+        \ trained."
+  staff:
+    type: "object"
+    required:
+    - "description"
+    - "name"
+    - "role"
+    - "staffID"
+    properties:
+      staffID:
+        type: "integer"
+      name:
+        type: "string"
+      role:
+        type: "string"
+      description:
+        type: "string"
+    example:
+      staffID: "1"
+      name: "Bruno Andreoni"
+      role: "he president of Milcare"
+      description: "The Cascina Brandezzata project is now fully operational: the\
+        \ historic farmhouse located in via Ripamonti 428 has been completely renovated\
+        \ and is now home to a Hospice for Terminal Patients and an Interdepartmental\
+        \ University Center for training and research in Palliative Care and in Therapy\
+        \ of ache."

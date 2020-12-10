@@ -1,0 +1,106 @@
+/* Wide Image + Breadcrumb */
+.jumbotron{
+    min-height: 600px;
+    background-image: url(../img/contact_wide.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
+    margin-top: 65px;
+}
+
+
+
+
+
+#googlepart{
+    /* background-image:url('try6.png'); */
+    min-height: 300px;
+}
+
+#callcenter{
+padding-left: 0;
+padding-top: 25px;
+font-size: 25%;
+}
+
+#howtoreach{
+    background-color: rgb(255, 255, 255);
+    min-height: 500px;
+}
+.card{ /*to check  */
+    width: 18rem;
+}
+
+.form-control{
+    width: 50%;
+    border-radius: 20px;
+    padding-left: 5px;
+}
+
+#forms{
+    background-color: rgb(238, 236, 236);
+    min-height: 300px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    width: 95%;
+}
+
+
+.btn.btn-primary{
+    border-radius: 25px;
+}
+
+
+
+
+/* Top Wide Image */
+
+.jumbotron {
+    min-height: 300px;
+    background-image: url(../img/contact_wide.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
+}
+
+/* Breadcumb */
+
+.breadcrumb {
+    background-color: rgb(240, 13, 13);
+}
+
+.breadcrumb>li {
+    color: white
+}
+
+.breadcrumb-item {
+    font-weight: bold;
+}
+
+/*for big title*/
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    margin-left: 0%;
+    color: #b30000;
+    font-style: normal;
+    margin-bottom: 5%;
+    font-weight: bold;
+}
+
+
+
+#howtoreach img{
+    padding-bottom: 10px;
+}
+
+#my_email {
+    color:black;
+}
+
+#my_email:hover {
+    color: green;
+}

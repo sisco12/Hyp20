@@ -1,0 +1,18 @@
+.cus_card:hover .card-body,
+.cus_card:hover .card-title,
+.cus_card:hover a:link {
+  background-color: #b30000;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.carousel-item{
+    height: 700px;
+} 
+.carousel-item img{
+    height: 800px;
+}
+
+
+

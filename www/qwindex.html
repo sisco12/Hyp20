@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+
+</head>
+<body>
+    <h1>  our first server running</h1>
+    <p>list of something</p>
+    <ul>
+
+    </ul>
+
+</body>
+<script>
+
+                var mylist = document.querySelector("ul");
+                fetch("api/staff/1").then(function(responce){
+                  return response.json();
+                }).then(function(json){
+                  for (var i=o;i<json.length;i++){
+                    var lisItem = document.createElement("li");
+                    let {name, description,picture}= json[i];
+                    lisItem.innerHTML=`${name}`;
+                    mylist.appendChild(lisItem);
+                  }
+                })
+            
+</script>
+</html>

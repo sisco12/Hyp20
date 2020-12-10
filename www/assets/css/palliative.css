@@ -1,0 +1,10 @@
+/* Wide Image + Breadcrumb */
+.jumbotron{
+    min-height: 300px;
+    background-image: url(../img/palliative_wide.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
+    margin-top: 65px;
+}
