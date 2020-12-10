@@ -169,7 +169,7 @@
     <script>
 
       var mylist = document.querySelector("ul");
-      fetch("http://localhost:8080/api/staff/").then(function(response){
+      fetch("https://milanocare.herokuapp.com/api/staff/").then(function(response){
         return response.json();
       }).then(function(json){
         console.log('json');
