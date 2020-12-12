@@ -1,4 +1,5 @@
 let {staffDBSetup} = require("./StaffService");
+let {eventsDBSetup} = require("./EventsService");
 
 
 const sqlDbFactory = require("knex");
@@ -18,6 +19,7 @@ const sqlDbFactory = require("knex");
 							// you have to return all services   // promise for all (check it on google)
 function setupDataLayer(){  // setup booksdbsetup with sqlDb variable , the actual connection to dabase
 	console.log("setting up data layer");
+	eventsDBSetup(sqlDb);
 	return staffDBSetup(sqlDb);
     }
 

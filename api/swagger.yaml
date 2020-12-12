@@ -39,7 +39,19 @@ paths:
       operationId: "getEvents"
       produces:
       - "application/json"
-      parameters: []
+      parameters:
+      - name: "month"
+        in: "query"
+        description: "Month of the event to return"
+        required: false
+        type: "string"
+        format: "int64"
+      - name: "staffID"
+        in: "query"
+        description: "staff if of the event to return"
+        required: false
+        type: "integer"
+        format: "int64"
       responses:
         "200":
           description: "Operation OK"
@@ -65,6 +77,43 @@ paths:
       - name: "eventID"
         in: "path"
         description: "eventID of the event to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Operation OK"
+          examples:
+            application/json:
+              eventID: "1"
+              title: "Life lecture"
+              description: "An appointment that over time has found more and more\
+                \ interest and that for this reason this fourth 2020 edition had to\
+                \ be divided into two separate Laboratories: Tuesday and Wednesday\
+                \ laboratories in order to be able to accept all the applications\
+                \ received."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/events"
+        "404":
+          description: "No EventIDfound on the database"
+          schema:
+            $ref: "#/definitions/No_Object_Error"
+      x-swagger-router-controller: "Events"
+  /events/staff/{staffID}:
+    get:
+      tags:
+      - "events"
+      summary: "Find Event by StaffId"
+      description: "return a single event"
+      operationId: "getEventsBystaffID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "staffID"
+        in: "path"
+        description: "staffID of the event to return"
         required: true
         type: "integer"
         format: "int64"
