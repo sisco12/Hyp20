@@ -2,9 +2,6 @@
 
 
 
-'use strict';
-
-
 let sqlDb;
 exports.eventsDBSetup = function (connection) {
   sqlDb = connection;
@@ -35,7 +32,7 @@ exports.getEvents = function({month,staffID}) {
   .leftJoin('staff', 'staff.staffid', '=', 'events.organiser')
   if(month && month !=='all'){
     query.andWhereRaw(`EXTRACT(MONTH FROM events.date::date) = ?`, [month])
-  }
+  }// Extract the month from events table's date column and compare that with the month coming from front end
   if(staffID &&  Number.isInteger(staffID)){
     query.where('staff.staffid', staffID)
   }

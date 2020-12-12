@@ -47,8 +47,14 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // prof- redirection
  // app.use(redirect()).use(function(req, res) {
-//
-       // });
+  app.use(redirect())
+  .use(function(req, res) {
+      if (req.url == '/backend/main.html') {
+          res.redirect('/backend')
+      } else if (req.url == '/docs') {
+          res.end('/backend/swaggerui');
+      }
+  });
 
 
   // Start the server
