@@ -8,3 +8,10 @@
     background-attachment: scroll;
     margin-top: 65px;
 }
+.text-description{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+}

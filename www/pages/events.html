@@ -97,7 +97,7 @@
     </section>
       
         
-    <div class="container">
+    <div class="text-center">
 
 
         <h1>
@@ -108,39 +108,48 @@
 <!--try for buttons -->
 
   <div id="container">
-    <button class="btn btn-success" type="submit">All</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,1)">Januay</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,2)">February</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,3)">Mars</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,4)">April</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,5)">May</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,6)">June</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,7)">July</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,8)">August</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,9)">September</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,10)">Octobre</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,11)">November</button>
-    <button class="btn btn-success" type="submit" onclick="showevents(2020,12)">December</button>
+    <button class="btn btn-success" type="submit" onclick="showevents()">All</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,1)">Januay</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,2)">February</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,3)">Mars</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,4)">April</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,5)">May</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,6)">June</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,7)">July</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,8)">August</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,9)">September</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,10)">Octobre</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,11)">November</button>
+    <button class="btn btn-success" type="submit" onclick="showevents(2021,12)">December</button>
+    <select class="custom-select"  style="width:unset;" onchange="showevents()" id="organiser">
+      <option selected value="">Select Organiser</option>
+      <option value="1">Bruno Andreoni</option>
+      <option value="2">Arrigo Andreoni</option>
+      <option value="3">Cinzia Pellegrini</option>
+      <option value="4">Anna Andreoni</option>
+      <option value="5">Luca Andreoni</option>
+    </select>
   </div>
 <!-- javascript code-->
 <script>
-
+let month_selected = '';
 function createEventCard(evt){
         let cardElement=
         `
         <div class="col-12 col-md-6 col-sm-4 col-xs-6 col-lg-4">
         
         <div class="card">
-            <img class="card-img-top" src="../assets/img/events_post-corso-assistenti.jpg" alt="Card image cap">
+            <img class="card-img-top" src="${evt.image}" alt="Card image cap">
             <div class="card-body">
                 <p class="card-text"></p>
-                <h5 class="card-title">${evt.title}</h5>
-                    <p class="text-muted">February 24</p>
-                    Tuesday 1st October (10.00 am) the new autumn socializing workshop organized by the Lu.VI Onlus Foundation will be presented. An appointment that over time has found more and more interest and that for this reason this fourth 2019 edition had to be divided into two separate Laboratories: Tuesday and Wednesday laboratories in order to be able to accept all the applications received.
+                <h5 class="card-title">${evt.name}</h5>
+                    <p class="text-muted">${new Date(evt.date).toISOString().slice(0,10)}</p>
+                    <p class="text-description">${evt.description}</p>
                 </p>
-                <p class="text-info">Organiser : <a href="#" class="text-dark">Bruno Andreoni</a></p>
-                <p class="text-info">Service : <a href="#" class="text-dark">Listening center</a></p> 
+                <p class="text-info">Organiser : <a href="member.html?id=${evt.organiser_id}" class="text-dark">${evt.organiser_name}</a></p>
+                <p class="text-info">Service : <a href="${evt.service_link}" class="text-dark">${evt.service_name}</a></p> 
             </div>
+          </div>
         </div>
         `
         return cardElement
@@ -148,14 +157,18 @@ function createEventCard(evt){
 
     function rendersevent(eventlist){
       let container=document.getElementById('Events')
+      container.classList.add('row');
+      container.style.marginLeft = "7%";
       container.innerHTML = ''  // clean the container
 
       let htmloutput = ''
 
-      for (evt in eventlist){ // list from the 
-        let cardElement =createEventCard(evt)
-        htmloutput +=cardElement
+      for (evt of eventlist){ // list from the 
+        let cardElement = createEventCard(evt)
+        htmloutput = `${htmloutput} ${cardElement}`
       }
+
+      console.log('html',htmloutput);
       container.innerHTML=htmloutput
     }
 
@@ -163,10 +176,24 @@ function createEventCard(evt){
     function showevents(year,month) {
 //call the database and get the januarry content
 //show the content inside the container y
-
-      let eventlist = [1] //try with [1 ,2 ,3] and you will see the difference
-      rendersevent(eventlist)
-
+let url = `http://localhost:8080/api/events?`;
+if(month){
+  month_selected = month;
+}else{
+  month_selected = "all";
+}
+url = `${url}month=${month_selected}&`;
+let selected_organiser = document.getElementById("organiser").value;
+if(selected_organiser){
+  url = `${url}staffID=${selected_organiser}&`
+}
+fetch(url).then(function(response){
+      return response.json();
+    }).then(function(json){
+      console.log('json',json);
+      // let eventlist = [1] //try with [1 ,2 ,3] and you will see the difference
+      rendersevent(json)
+    })
     }
 
 
