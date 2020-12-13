@@ -49,6 +49,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
  // app.use(redirect()).use(function(req, res) {
   app.use(redirect())
   .use(function(req, res) {
+    console.log(req.url)
       if (req.url == '/backend/main.html') {
           res.redirect('/backend')
       } else if (req.url == '/docs') {
