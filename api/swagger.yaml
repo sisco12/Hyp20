@@ -9,12 +9,12 @@ info:
     \ any commercial use is prohibited."
   contact:
     name: "Sophisticated Group- Najib only"
-    url: "https://github.com/sisco12/Hypermedianajib"
+    url: "https://github.com/sisco12/Hyp20"
     email: "najib.elguertit@mail.polimi.it"
   license:
     name: "MIT"
     url: "http://opensource.org/licenses/MIT"
-host: "localhost:8080"
+host: "milanocare.herokuapp.com"
 basePath: "/api"
 tags:
 - name: "events"

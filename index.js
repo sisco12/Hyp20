@@ -46,14 +46,31 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(serveStatic(__dirname + "/www"));
 
   // prof- redirection
- // app.use(redirect()).use(function(req, res) {
+ // another try
   app.use(redirect())
   .use(function(req, res) {
     console.log(req.url)
       if (req.url == '/backend/main.html') {
-          res.redirect('/backend')
+        fs.readFile(__dirname + req.url, function (err,data) {
+          if (err) {
+            res.writeHead(404);
+            res.end(JSON.stringify(err)); // write object into string
+            return;
+          }
+          res.writeHead(200);
+          res.end(data);
+        });
+
       } else if (req.url == '/docs') {
-          res.end('/backend/swaggerui');
+        fs.readFile(__dirname + req.url, function (err,data) {
+          if (err) {
+            res.writeHead(404);
+            res.end(JSON.stringify(err));
+            return;
+          }
+          res.writeHead(200);
+          res.end(data);
+        });
       }
   });
 
