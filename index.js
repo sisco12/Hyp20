@@ -47,7 +47,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // prof- redirection
  // another try
-  app.use(redirect())
+  /*app.use(redirect())
   .use(function(req, res) {
     console.log(req.url)
       if (req.url == '/backend/main.html') {
@@ -72,7 +72,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
           res.end(data);
         });
       }
-  });
+  });*/
 
 
   // Start the server
