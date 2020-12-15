@@ -1,90 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>MilanoCare</title>
-  <link href="/assets/css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.3/dist/css/uikit.min.css" />
-  <style>
-    p {
-      font-family: suisse-reg;
-
-    }
-
-    body {
-      padding-left: 10rem;
-      padding-right: 10rem;
-    }
-  </style>
-</head>
-
-<body>
-  <h1 style="padding-top:5rem;">
-    MilanoCare onlus - Backend Documentation
+<link rel="stylesheet" href="hi.css">
+<section>
+  <h1>
+    MilanoCare - Backend Documentation
   </h1>
-
-
-  <h2>1 - General information</h2>
-  <ul style="font-family:suisse-reg" ;>
-    <li>
-      Najib ElGuertit <br />
-      Personal Code: 839777 <br />
-      E-mail: najib.elguertit@mail.polimi.it
-    </li>
-    <br />
-
-  </ul>
-
-
-
-  <h2>2 - Links to other deliverables</h2>
-  <ul style="font-family:suisse-reg" ;>
-
-    <li>
-      <a href="https://milanocare.herokuapp.com/">Deliverable D0</a> : The web application.
-    </li>
-    <li>
-      <a href="https://milanocare.herokuapp.com/backend/spec.yaml">Deliverable D2</a> : YAML file containing the specification of the app API.
-    </li>
-    <li>
-      <a href="https://milanocare.herokuapp.com/docs/">Deliverable D3</a> : The SwaggerUI page of the API.
-    </li>
-    <li>
-      <a href="https://milanocare.herokuapp.com/backend/app.zip">Deliverable D4</a> : The source code of D0 is available as a zip file.
-    </li>
-    <li>
-      <a href="https://github.com/sisco12/Hyp20.git">Deliverable D5</a> : The Git repository. <br />I hereby declare that this is a private repository and, upon request,
-      I will give access to the instructors.
-    </li>
-  </ul>
-  <h2>3 - Specification</h2>
-
-  <h3>3.1 - Web Architecture</h3>
-  <div><img src="img/web.jpg" width="700px" /></div>
-  <p>
-    I took this slide directly from the Professor Zaccaria slides, as it is exactly the way I deployed this application. 
-    The database is the data layer, while the Application server serves as application layer. The database is the one managed through Heroku,
-    while the Application Server is the one generated from the swaggerUI.
-    In a basic representation:
-  </p>
-  <div><img src="img/backend.png" width="700px" /></div>
+  <details>
+    <summary>1 - General information</summary>
+    <p>
+        <ul class="uk-list">
+            <strong>Najib El Guertit</strong><br />
+        Personal Code: 839777 <br />
+        E-mail: najib.elguertit@mail.polimi.it
+        </ul>
+    </p>
+  </details>
+  <details>
+    <summary>2 - Links to other deliverables</summary>
+    <p>
+      <li>
+        <a href="https://milanocare.herokuapp.com/">Deliverable D0</a> : The web application.
+      </li>
+      <li>
+        <a href="https://milanocare.herokuapp.com/backend/spec.yaml">Deliverable D2</a> : YAML file containing the specification of the app API.
+      </li>
+      <li>
+        <a href="https://milanocare.herokuapp.com/docs/">Deliverable D3</a> : The SwaggerUI page of the API.
+      </li>
+      <li>
+        <a href="https://milanocare.herokuapp.com/backend/app.zip">Deliverable D4</a> : The source code of D0 is available as a zip file.
+      </li>
+      <li>
+        <a href="https://github.com/sisco12/Hyp20.git">Deliverable D5</a> : The Git repository. <br />I hereby declare that this is a private repository and, upon request,
+        I will give access to the instructors.
+      </li>
+    </p>
+  </details>
+  <details>
+    <summary>3 - Specification</summary>
+    <h3>3.1 - Web Architecture</h3>
+    <div><img src="img/web.jpg" width="700px" /></div>
+    <p>
+      I took this slide directly from the Professor Zaccaria slides, as it is exactly the way I deployed this application. 
+      The database is the data layer, while the Application server serves as application layer. The database is the one managed through Heroku,
+      while the Application Server is the one generated from the swaggerUI.
+      In a basic representation:
+    </p>
+    <div><img src="img/backend.png" width="700px" /></div>
   <p>
     The initial response will be large and serve the static files including
     all CSS, all Javascript, all HTML pages and some images, but no real
     content. The future requests will serve JSON with information from the
     database that will fill the appropriate HTML pages.
   </p>
-
   <h3>3.2 - API</h3>
-  <h4>3.2.1 - REST compliance
-  </h4>
-
+  <h3>3.2.1 - REST compliance</h3>
   <p>
-    We'll describe the approach to REST principles by targeting their main
-    points:<br>
+    The approach to REST principles is described by the points below:<br>
 
     <ul>
 
@@ -107,11 +79,12 @@
       </li>
     </ul>
   </p>
-  <h4>3.2.2 - OpenAPI Resource models</h4>
+
+  <h3>3.2.2 - OpenAPI Resource models</h3>
   <div class="uk-grid-column-medium uk-grid-row-large uk-child-width-1-4@s uk-grid uk-grid-stack" uk-grid>
     <div>
       <div class="uk-card uk-card-default uk-card-small uk-card-body">
-        <h3 class="uk-card-title">Person</h3>
+        <h4 class="uk-card-title">Person</h4>
         <ul class="uk-list">
           <li>
             name - string
@@ -131,7 +104,7 @@
     </div>
     <div>
       <div class="uk-card uk-card-default uk-card-small uk-card-body">
-        <h3 class="uk-card-title">Event</h3>
+        <h4 class="uk-card-title">Event</h4>
         <ul class="uk-list">
           <li>
             name - string
@@ -160,10 +133,6 @@
 
 
   </div>
-
-
-
-
   <h3>3.3 - Data model</h3>
  
 
@@ -173,15 +142,14 @@
     An event can support only one service but a service can be supported by
     many events. </p>
 
-
-
-
-
   <p></p>
-  <p><img src="/backend/img/db.png" width="600" uk-svg> </p>
-  <p></p>
-  <h2>4 - Implementation</h2>
-  <h3>4.1 - Tools used</h3>
+  <p><img src="img/db.png" width="600" uk-svg> </p>
+
+
+  </details>
+  <details>
+    <summary>4 - Implementation</summary>
+    <h3>4.1 - Tools used</h3>
   To develop the back end application, I used:
   <li>node js</li>
   <li>postgreSQL to manage the database</li>
@@ -192,16 +160,17 @@
 
   <p>
     
-    I started  writting the specification of the api in Swagger where i end up with several versions in order to make it right.</br>
-    I created a db directly in heroku (directly in the production it's not the right way) due to problem i faced with my mac.</br>
+    I started  writing the specification of the API in Swagger where I end up with several versions in order to make it right.</br>
+    I created a db directly in heroku (directly in the production it's not the right way) due to problem I faced with my mac.</br>
     After those steps were completed, I started working on the controllers then working on Html files in order to fetch data and show them on the browser client.</br>
 
   </p>
 
+  </details>
 
- 
-  <h2>5 - Other information</h2>
-  <h3>5.1 - Task assignment</h3>
+  <details>
+    <summary>5 - Other Information</summary>
+    <h3>5.1 - Task assignment</h3>
 
   <p>
     <ul class="uk-list">
@@ -209,8 +178,8 @@
 
 
 
-        200% backend (3-4 months)<br /> 
-       70% frontend (1 month)
+        100% backend (3-4 months)<br /> 
+       40% frontend (1 month)
     </ul>
 
   </p>
@@ -219,22 +188,17 @@
 
   <p>
     I found that example of <a href="https://petstore.swagger.io/">Swagger Petstore</a> very helpful,
-     The videos of the prof Zaccaria, meetings with Prof Gianotti , Youtube tutorials, Udemy class (Frontend and Backend) and a LOT of posts from Stackoverflow. 
+     the videos of the prof Zaccaria, meetings with Prof Gianotti, Youtube tutorials, Udemy class (Frontend and Backend) and a LOT of posts from Stackoverflow. 
 
   </p>
   <h3>5.4 - Learning outcome</h3>
 
   <p>
-      I never have an experience in javascript or node JS, postgrsql before, I start learning all this from scratch 
-      take me a while to be come familiar with the concept of developing and managing a web database, I am highly satisfy with the result.
-      Thanks to all the professors were involved in this course for their directions and specially for their supports.
+      I have never had an experience in javascript or node JS, postgrsql before. I started learning all this from scratch 
+      and toke me a while to become familiar with the concept of developing and managing a web database. I am highly satisfied with the result.
+      Thanks to all the professors were involved in this course for their directions and specially for their support.
   </p>
 
-  </p>
-
-  <br />
-  <br />
-  <br />
-</body>
-
+  </details>
+</section>
 </html>
