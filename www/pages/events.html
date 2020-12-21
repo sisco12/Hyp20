@@ -133,11 +133,10 @@
 <!-- javascript code-->
 <script>
 let month_selected = '';
-function createEventCard(evt){//varialbe in which events are looping one by one
+function createEventCard(evt){
         let cardElement=
         `
-        <div class="col-12 col-md-6 col-sm-4 col-xs-6 col-lg-4">
-          <a href="/pages/event_details.html?id=${evt.eventid}"> 
+        <div class="col-12 col-md-6 col-sm-4 col-xs-6 col-lg-4" onclick="movetodetails(${evt.eventid})">
         
         <div class="cus_card">
             <img class="card-img-top" src="${evt.image}" alt="Card image cap">
@@ -151,8 +150,6 @@ function createEventCard(evt){//varialbe in which events are looping one by one
                 <p class="text-info">Service : <a href="service_details.html?id=${evt.service}" class="text-dark">${evt.service_name}</a></p>  
             </div>
           </div>
-        </a>
-
         </div>
         `
         return cardElement

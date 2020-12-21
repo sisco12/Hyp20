@@ -224,7 +224,7 @@
         document.getElementById("event_title").innerHTML = data.name;
         document.getElementById("event_organiser").innerHTML = data.organiser_name;
         document.getElementById("event_organiser_href").href = `member.html?id=${data.organiser_id}`; 
-        let service_events = '';
+        let event_services = '';
         if(!data.services || !data.services[0].serviceid){
           event_services = 'Not in any'
         }else{
