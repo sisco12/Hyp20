@@ -21,28 +21,6 @@ exports.staffDBSetup = function (connection) {
  *
  * returns List
  **/
-/*
-exports.getStaff = function() {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "staffID" : "1",
-  "name" : "Bruno Andreoni",
-  "role" : "he president of Milcare",
-  "description" : "The Cascina Brandezzata project is now fully operational: the historic farmhouse located in via Ripamonti 428 has been completely renovated and is now home to a Hospice for Terminal Patients and an Interdepartmental University Center for training and research in Palliative Care and in Therapy of ache."
-}, {
-  "staffID" : "1",
-  "name" : "Bruno Andreoni",
-  "role" : "he president of Milcare",
-  "description" : "The Cascina Brandezzata project is now fully operational: the historic farmhouse located in via Ripamonti 428 has been completely renovated and is now home to a Hospice for Terminal Patients and an Interdepartmental University Center for training and research in Palliative Care and in Therapy of ache."
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}*/
 
 
 
@@ -67,31 +45,22 @@ exports.getStaff = function () {
  * staffID Long member id to return
  * returns List
  **/
-/*
-exports.getStaffID = function(staffID) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "staffID" : "1",
-  "name" : "Bruno Andreoni",
-  "role" : "The president of Milcare",
-  "description" : "The Cascina Brandezzata project is now fully operational: the historic farmhouse located in via Ripamonti 428 has been completely renovated and is now home to a Hospice for Terminal Patients and an Interdepartmental University Center for training and research in Palliative Care and in Therapy of ache."
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-} */
+
 
 
 //try another way return staff by id
 exports.getStaffID = function (staffid) {
-  return sqlDb("staff")
-  .select()
-  .where({staffid: staffid}).
-  then(data => {
-    return data;
-  });
+  console.log('asdasda')
+return sqlDb("staff")
+.select('staff.*')
+.select(sqlDb.raw(`json_agg(json_build_object('serviceid',services.serviceid,'name',services.name)) as services`))
+.select(sqlDb.raw(`json_agg(json_build_object('eventid',events.eventid,'name',events.name)) as events`))
+
+.leftJoin('services', 'services.organiser', '=', 'staff.staffid')
+.leftJoin('events', 'events.organiser', '=', 'staff.staffid')
+.where('staffid', staffid)
+.groupBy('staff.staffid')
+.then(data => {
+  return data;
+});
 };

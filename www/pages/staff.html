@@ -172,13 +172,6 @@
       fetch("https://milanocare.herokuapp.com/api/staff/").then(function(response){
         return response.json();
       }).then(function(json){
-        console.log('json');
-        // for (var i=o;i<json.length;i++){
-        //   var lisItem = document.createElement("li");
-        //   let {name, description,picture}= json[i];
-        //   lisItem.innerHTML=`${name}`;
-        //   mylist.appendChild(lisItem);
-        // }
         let cards = ``; 
         for (const iterator of json) {
           cards = cards + `<div

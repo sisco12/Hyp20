@@ -136,9 +136,9 @@ let month_selected = '';
 function createEventCard(evt){
         let cardElement=
         `
-        <div class="col-12 col-md-6 col-sm-4 col-xs-6 col-lg-4">
+        <div class="col-12 col-md-6 col-sm-4 col-xs-6 col-lg-4" onclick="movetodetails(${evt.eventid})">
         
-        <div class="card">
+        <div class="cus_card">
             <img class="card-img-top" src="${evt.image}" alt="Card image cap">
             <div class="card-body">
                 <p class="card-text"></p>
@@ -147,7 +147,7 @@ function createEventCard(evt){
                     <p class="text-description">${evt.description}</p>
                 </p>
                 <p class="text-info">Organiser : <a href="member.html?id=${evt.organiser_id}" class="text-dark">${evt.organiser_name}</a></p>
-                <p class="text-info">Service : <a href="${evt.service_link}" class="text-dark">${evt.service_name}</a></p> 
+                <p class="text-info">Service : <a href="service_details.html?id=${evt.service}" class="text-dark">${evt.service_name}</a></p>  
             </div>
           </div>
         </div>
@@ -159,6 +159,7 @@ function createEventCard(evt){
       let container=document.getElementById('Events')
       container.classList.add('row');
       container.style.marginLeft = "7%";
+      container.style.marginRight = "7%";
       container.innerHTML = ''  // clean the container
 
       let htmloutput = ''
@@ -196,6 +197,10 @@ fetch(url).then(function(response){
     })
     }
 
+//moving from event to event details page
+    function movetodetails(eventid){
+      window.location.href = `event_details.html?id=${eventid}`;
+    }
 
 </script>
 <!-- end of javascript code-->

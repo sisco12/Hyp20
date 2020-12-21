@@ -116,19 +116,15 @@
               />
               <p class="cus_present mt-3">
                 <strong>Contact for: </strong>
-                <a class="cus_link" href="#">
-                  <span id="contactfor">
-                    Spring event
-                  </span>
-                </a>
+                <div id="contactfor">
+                  
+                </div>
               </p>
               <p>
                 <strong>Involved in: </strong>
-                <a href="#">
-                  <span id="involvedin">
-                    Hospice service
-                  </span>
-                </a>
+                <div id="involvedin">
+
+                </div>
               </p>
             </div>
             <div
@@ -253,8 +249,40 @@
         let data = json[0];
         document.getElementById("name").innerHTML = data.name;
         document.getElementById("role").innerHTML = `Role: ${data.role}`;
-        document.getElementById("contactfor").innerHTML = data.contactfor;
-        document.getElementById("involvedin").innerHTML = data.involvedin;
+        let events = '';
+        if(!data.events || !data.events[0].eventid){
+          events = 'No Events'
+        }else{
+          //remove dup
+          data.events = [...new Map(data.events.map(item => [item['eventid'], item])).values()]
+          for (const iterator of data.events) {
+            events += `
+            <a href="event_details.html?id=${iterator.eventid}">
+              <span>
+                ${iterator.name}
+              </span>
+            </a>
+            `
+          }
+        }
+        document.getElementById("contactfor").innerHTML = events;
+        let services = '';
+        if(!data.services || !data.services[0].serviceid){
+          services = 'No Services'
+        }else{
+          //remove dup
+          data.services = [...new Map(data.services.map(item => [item['serviceid'], item])).values()]
+          for (const iterator of data.services) {
+            services += `
+            <a href="service_details.html?id=${iterator.serviceid}">
+              <span>
+                ${iterator.name}
+              </span>
+            </a>
+            `
+          }
+        }
+        document.getElementById("involvedin").innerHTML = services;
         document.getElementById("description").innerHTML = data.description;
         document.getElementById("assistance").innerHTML = data.assistance;
         document.getElementById("trainingandresearch").innerHTML = data.trainingandresearch;

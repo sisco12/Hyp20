@@ -69,18 +69,20 @@ exports.getEventsByStaffId = function(staffid) {
  * returns List
  **/
 exports.getEventsID = function(eventID) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "eventID" : "1",
-  "title" : "Life lecture",
-  "description" : "An appointment that over time has found more and more interest and that for this reason this fourth 2020 edition had to be divided into two separate Laboratories: Tuesday and Wednesday laboratories in order to be able to accept all the applications received."
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+  return sqlDb("events")
+  .select('events.*')
+  .select('staff.staffid as organiser_id')
+  .select('staff.name as organiser_name')
+  .select(sqlDb.raw(`json_agg(json_build_object('serviceid',services.serviceid,'name',services.name)) as services`))
+  .select(sqlDb.raw(`json_agg(json_build_object('imageid',images.imageid,'link',images.link)) filter (where images.imageid is not null) as images`))
+  .leftJoin('services', 'services.serviceid', '=', 'events.service')
+  .leftJoin('staff', 'staff.staffid', '=', 'events.organiser')
+  .leftJoin(sqlDb.raw(`images on images.type_id = events.eventid  and images.type=2`))
+  .where('events.eventid', eventID)
+  .groupBy('events.eventid')
+  .groupBy('staff.staffid')
+  .then(data => {
+    return data;
   });
 }
 

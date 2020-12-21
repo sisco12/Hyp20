@@ -114,80 +114,7 @@
     <!-- *** Content Section *** -->
     <section>
       <div class="container">
-        <div class="row">
-          <!-- *** Card One *** -->
-          <div
-            class="mb-4 align-items-start col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"
-          >
-            <div class="cus_card">
-              <a href="hospice.html">
-                <div class="card shadow mb-5 bg-white rounded-lg">
-                  <div class="view overlay">
-                    <img
-                      class="card-img-top"
-                      src="../assets/img/services_01.jpg"
-                      alt="Service1"
-                    />
-                  </div>
-                  <div class="card-body">
-                    <h3 class="card-title mb-0 mt-0 text-center">Hospice</h3>
-                    <!-- <p class="card-text"></p> -->
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <!-- *** Card Two *** -->
-          <div
-            class="mb-4 align-items-start col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"
-          >
-            <div class="cus_card">
-              <a href="palliative.html">
-                <div class="card shadow mb-5 bg-white rounded-lg">
-                  <div class="view overlay">
-                    <img
-                      class="card-img-top"
-                      src="../assets/img/services_02.jpg"
-                      alt="Service1"
-                    />
-                  </div>
-                  <div class="card-body">
-                    <h3 class="card-title mb-0 mt-0 text-center">
-                      Palliative care
-                    </h3>
-                    <!-- <p class="card-text"></p> -->
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <!-- *** Card Three *** -->
-          <div
-            class="mb-4 align-items-start col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"
-          >
-            <div class="cus_card">
-              <a href="listening.html">
-                <div class="card shadow mb-5 bg-white rounded-lg">
-                  <div class="view overlay">
-                    <img
-                      class="card-img-top"
-                      src="../assets/img/services_03.jpg"
-                      alt="Service1"
-                    />
-                  </div>
-                  <div class="card-body">
-                    <h3 class="card-title mb-0 mt-0 text-center">
-                      Listening center
-                    </h3>
-                    <!-- <p class="card-text"></p> -->
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
+        <div class="row" id="services"></div>
       </div>
     </section>
 
@@ -239,5 +166,39 @@
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"
     ></script>
+    <script>
+
+      var mylist = document.querySelector("ul");
+      fetch("https://milanocare.herokuapp.com/api/services/").then(function(response){
+        return response.json();
+      }).then(function(json){
+        let cards = ``; 
+        for (const iterator of json) {
+          cards = cards + `<div
+            class="mb-4 align-items-start col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"
+          >
+            <div class="cus_card">
+              <a href="service_details.html?id=${iterator.serviceid}">
+                <div class="card shadow mb-5 bg-white rounded-lg">
+                  <div class="view overlay">
+                    <img
+                      class="card-img-top"
+                      src="${iterator.image}"
+                      alt="Service1"
+                    />
+                  </div>
+                  <div class="card-body">
+                    <h3 class="card-title mb-0 mt-0 text-center">${iterator.title}</h3>
+                    <!-- <p class="card-text"></p> -->
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>`;
+        }
+        document.getElementById("services").innerHTML = cards;
+      })
+  
+</script>
   </body>
 </html>
